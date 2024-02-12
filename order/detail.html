@@ -25,6 +25,8 @@
         text-align: center;
       }
     </style>
+
+
   </head>
   <body>
     <div class="container">
@@ -58,9 +60,17 @@
 
       <h2 class="mt-5">주문 내역</h2>
         
-      <div>
-        <h3 id="product"></h3>
-
+      <div class="card" style="width:18rem;">
+        <img class="card-img-top" src="https://picsum.photos/200/200?random=1" alt="상품 이미지" />
+        <div class="card-body">
+        
+            <p id="product-code"></p>
+            <h3 id="product"></h3>
+            <p id="price"></p>
+        
+        
+        <p>주문 수량: <input type="number" id="quantity" value="1" /></p>
+        </div>
       </div>
     </div>
    
@@ -69,17 +79,10 @@
       <p>쇼핑몰</p>
     </footer>
     <script>
-        // window.location.href parameter price=5000&prodcut=p001
-        // window.location.href.split('?') => ["./order/detail.html", "price=5000&prodcut=p001"]
-        // window.location.href.split('?')[1] => "price=5000&prodcut=p001"
-        // window.location.href.split('?')[1].split('&') => ["price=5000", "prodcut=p001"]
-        // window.location.href.split('?')[1].split('&')[0] => "price=5000"
-        // window.location.href.split('?')[1].split('&')[0].split('=') => ["price", "5000"]
-        // 
-        //document.getElementById('price').innerText = '가격: ' + window.location.href.split('?')[1].split('&')[0].split('=')[1] + '원';
-
-        
-        document.getElementById('product').innerText = '상품명: ' + window.location.href.split('?')[1].split('&')[1].split('=')[1];
+        document.getElementById('product').innerText = decodeURI(decodeURIComponent( window.location.href.split('?')[1].split('&')[1].split('=')[1]));
+        document.getElementById('price').innerText = decodeURI(decodeURIComponent( window.location.href.split('?')[1].split('&')[0].split('=')[1]));
+        //right 1 character is cut off
+        document.getElementById('product-code').innerText = 'product code:' + document.querySelector("#product").innerText.slice(-1);
     </script>
   </body>
 </html>
